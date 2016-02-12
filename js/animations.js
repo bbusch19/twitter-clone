@@ -47,11 +47,35 @@ $(document).ready(function() {
       }
 })
 
+//this prepends the new tweet into the feed
 
 $('#tweet-submit').on('click', function() {
-  $('#stream').prepend('<div class="tweet"><div class="content"><img class="avatar" src="img/alagoon.jpg" /><strong class="fullname">Harry Potter</strong><span class="username">@hPotter</span><p class="tweet-text">' + $('textarea.tweet-compose').val() + '</p><div class="tweet-actions"><ul><li><span class="icon action-reply"></span> Reply</li><li><span class="icon action-retweet"></span> Retweet</li><li><span class="icon action-favorite"></span> Favorite</li><li><span class="icon action-more"></span> More</li></ul></div>');
+  $('#stream').prepend('<div class="tweet"><div class="content"><img class="avatar" src="img/alagoon.jpg" /><strong class="fullname">Harry Potter</strong><span class="username">@hPotter</span><p class="tweet-text">' + $('textarea.tweet-compose').val() + '</p><div class="tweet-actions"><ul><li><span class="icon action-reply"></span> Reply</li><li><span class="icon action-retweet"></span> Retweet</li><li><span class="icon action-favorite"></span> Favorite</li><li><span class="icon action-more"></span> More</li></ul></div></div>');
+  $('textarea.tweet-compose').val('');
+
+          //this crap makes the tweet-actions show and hide
+
+          $('.tweet').on('mouseenter', function() {
+            $(this).find('.tweet-actions').slideDown();
+          })
+
+          $('.tweet-actions').hide();
+          $('.tweet').on('mouseleave', function() {
+            $(this).find('.tweet-actions').slideUp();
+          })
+
 })
 
+//this crap makes the tweet-actions show and hide
+
+$('.tweet').on('mouseenter', function() {
+  $(this).find('.tweet-actions').slideDown();
+})
+
+$('.tweet-actions').hide();
+$('.tweet').on('mouseleave', function() {
+  $(this).find('.tweet-actions').slideUp();
+})
 
 
 });
