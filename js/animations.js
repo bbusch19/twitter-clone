@@ -82,6 +82,7 @@ $('#tweet-submit').on('click', function() {
 
 })
 
+
 //this crap makes the tweet-actions show and hide
 
 $('.tweet').on('mouseenter', function() {
