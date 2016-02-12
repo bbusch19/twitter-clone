@@ -6,6 +6,11 @@ $(document).ready(function() {
 
 $('time.timeago').timeago();
 
+if(localStorage['tweets']) {
+  var storedTweets = JSON.parse(localStorage['tweets']);
+  $('#stream').prepend(storedTweets);
+}
+
 // var timeStamp = $.timeago(new Date());
 //this grows and fades in the tweet-controls
 
@@ -52,10 +57,14 @@ $('time.timeago').timeago();
       }
 })
 
+
 //this prepends the new tweet into the feed
 
 $('#tweet-submit').on('click', function() {
-  $('#stream').prepend('<div class="tweet"><div class="content"><img class="avatar" src="img/alagoon.jpg" /><strong class="fullname">Harry Potter</strong><span class="username">@hPotter</span><p class="tweet-text">' + $('textarea.tweet-compose').val() + '</p><div class="tweet-actions"><ul><li><span class="icon action-reply"></span> Reply</li><li><span class="icon action-retweet"></span> Retweet</li><li><span class="icon action-favorite"></span> Favorite</li><li><span class="icon action-more"></span> More</li></ul></div><div class="stats"><div class="retweets"><p class="num-retweets">0</p><p>RETWEETS</p></div><div class="favorites"><p class="num-favorites">0</p><p>FAVORITES</p></div><div class="time">'+ $.timeago(new Date()) +'</div></div>');
+
+  var newTweet = '<div class="tweet"><div class="content"><img class="avatar" src="img/alagoon.jpg" /><strong class="fullname">Harry Potter</strong><span class="username">@hPotter</span><p class="tweet-text">' + $('textarea.tweet-compose').val() + '</p><div class="tweet-actions"><ul><li><span class="icon action-reply"></span> Reply</li><li><span class="icon action-retweet"></span> Retweet</li><li><span class="icon action-favorite"></span> Favorite</li><li><span class="icon action-more"></span> More</li></ul></div><div class="stats"><div class="retweets"><p class="num-retweets">0</p><p>RETWEETS</p></div><div class="favorites"><p class="num-favorites">0</p><p>FAVORITES</p></div><div class="time">'+ $.timeago(new Date()) +'</div></div>';
+
+  $('#stream').prepend(newTweet);
 
   $('textarea.tweet-compose').val('');
 
@@ -80,6 +89,8 @@ $('#tweet-submit').on('click', function() {
             $(this).find('.stats').slideUp();
           })
 
+
+          localStorage['tweets'] = JSON.stringify(newTweet);
 
 
 })
@@ -112,5 +123,20 @@ $('.tweet').on('mouseenter', function() {
 $('.tweet').on('mouseleave', function() {
   $(this).find('.reply').slideUp();
 })
+
+//make favorite button work
+var numFavs = 0;
+
+$('.tweet-actions > ul > li > span.action-favorite').on('click', function() {
+  numFavs++;
+  $('.num-favorites').text(numFavs);
+})
+
+var numRetweets = 0;
+$('.tweet-actions > ul > li > span.action-retweet').on('click', function() {
+  numRetweets++;
+  $(this).next().siblings().find('.num-retweets').text(numRetweets);
+})
+
 
 });
