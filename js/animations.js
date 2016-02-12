@@ -80,8 +80,9 @@ $('#tweet-submit').on('click', function() {
             $(this).find('.stats').slideUp();
           })
 
-})
 
+
+})
 
 //this crap makes the tweet-actions show and hide
 
